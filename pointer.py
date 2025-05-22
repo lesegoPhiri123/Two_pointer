@@ -1,19 +1,18 @@
-def max_sum_subarray(arr, k):
-    n = len(arr)
-    if n < k:
-        return "Array length is less than k"
+def has_pair_with_sum(arr, target):
+    left = 0
+    right = len(arr) - 1
 
-    # Compute sum of first window of size k
-    window_sum = sum(arr[:k])
-    max_sum = window_sum
+    while left < right:
+        current_sum = arr[left] + arr[right]
+        if current_sum == target:
+            return True
+        elif current_sum < target:
+            left += 1
+        else:
+            right -= 1
 
-    # Slide the window: subtract the element going out and add the element coming in
-    for i in range(k, n):
-        window_sum += arr[i] - arr[i - k]
-        max_sum = max(max_sum, window_sum)
+    return False
 
-    return max_sum
-
-arr = [1, 2, 5, 4, 6, 3]
-k = 3
-print(max_sum_subarray(arr, k))
+arr = [1, 3, 5, 7]
+target = 12
+print(has_pair_with_sum(arr, target))
